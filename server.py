@@ -5,10 +5,10 @@ import MySQLdb.cursors
 app = Flask(__name__)
 app.secret_key = 'super secret key'
 
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'admin'
-app.config['MYSQL_DB'] = 'blood_donation_system'
+app.config['MYSQL_HOST'] = 'eu-cdbr-west-03.cleardb.net'
+app.config['MYSQL_USER'] = 'b1f6b4ddcecdda'
+app.config['MYSQL_PASSWORD'] = 'c90fb2a2'
+app.config['MYSQL_DB'] = 'heroku_b149c46afedacc5'
 
 mysql = MySQL(app)
 
