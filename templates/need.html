@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<body>
+    <form method = "POST" action="">
+        <h2>Kan Talep Sekmesi </h2> <br>
+        <label for="kangrubu">Hangi kan grubuna ihtiyacınız var?</label>
+        <select name="kangrubu" id="kangrubu">
+        <option value="ARh+">ARh+</option>
+        <option value="ARh-">ARh-</option>
+        <option value="BRh+">BRh+</option>
+        <option value="BRh-">BRh-</option>
+        <option value="0Rh+">0Rh+</option>
+        <option value="0Rh-">0Rh-</option>
+        <option value="ABRh+">ABRh+</option>
+        <option value="ABRh-">ABRh-</option>
+        </select><br>
+        Kaç tüp kana İhtiyacınız var? <input type = "text" name = "amount" /> <br>
+        Not düşmek istediğiniz her şeyi buraya yazabilirsiniz, dilerseniz bağışçıların size ulaşabilmesi için telefon numarası ekleyebilirsiniz.<br> <input type = "textarea" name = "comment" /> <br>
+        <button type="submit" class="donatebtn">Talep Oluştur</button>
+    </form>
+    </body>
+{% endblock %}

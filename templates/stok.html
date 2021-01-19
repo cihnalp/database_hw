@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<table class="table">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Şehir kodu</th>
+        <th scope="col">ARh+</th>
+        <th scope="col">ARh-</th>
+        <th scope="col">BRh+</th>
+        <th scope="col">BRh-</th>
+        <th scope="col">0Rh+</th>
+        <th scope="col">0Rh-</th>
+        <th scope="col">ABRh+</th>
+        <th scope="col">ABRh-</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">{{stok.region_id}}</th>
+        <td>{{stok.Arhp}}</td>
+        <td>{{stok.Arhn}}</td>
+        <td>{{stok.Brhp}}</td>
+        <td>{{stok.Brhn}}</td>
+        <td>{{stok.zerorhp}}</td>
+        <td>{{stok.zerorhn}}</td>
+        <td>{{stok.ABrhp}}</td>
+        <td>{{stok.ABrhn}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+{% endblock %}

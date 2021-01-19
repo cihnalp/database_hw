@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Talep NO</th>
+        <th scope="col">Şehir Kodu</th>
+        <th scope="col">Talepte bulunan</th>
+        <th scope="col">Talep Miktarı</th>
+        <th scope="col">Talep Notu</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+    {% for don in need %}  
+      <tr> 
+        <td>{{don.need_id}}</td>
+        <td>{{don.region_id}}</td>
+        <td>{{name}}</td>
+        <td>{{don.amount}}</td>
+        <td>{{don.need_comment}}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <form method = "POST" action="">
+  Lütfen silmek istediğiniz talep numarasını giriniz: <input type = "text" name = "amount" />
+  <button type="submit" class="deletebtn">Talebi Sil</button>
+  <p>{{msg}}</p>
+  </form>
+{% endblock %}

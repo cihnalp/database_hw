@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Şehir Kodu</th>
+        <th scope="col">Bağışçı</th>
+        <th scope="col">Bağış Miktarı</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+    {% for don in donate %}  
+      <tr> 
+        <td>{{don.region_id}}</td>
+        <td>{{name}}</td>
+        <td>{{don.amount}}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

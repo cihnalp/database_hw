@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<body>
+    <form method = "POST" action="">
+        <h2>Stoktan Talep Et </h2> <br>
+        <label for="kangrubu">Hangi kan grubuna ihtiyacınız var?</label>
+        <select name="kangrubu" id="kangrubu">
+            <option value="ARh+">ARh+</option>
+            <option value="ARh-">ARh-</option>
+            <option value="BRh+">BRh+</option>
+            <option value="BRh-">BRh-</option>
+            <option value="0Rh+">0Rh+</option>
+            <option value="0Rh-">0Rh-</option>
+            <option value="ABRh+">ABRh+</option>
+            <option value="ABRh-">ABRh-</option>
+        </select><br>
+        Talep edilen kan miktarı: <input type = "text" name = "amount" /> <br>
+        <button type="submit" class="donatebtn">Stoktan İste</button>
+        <p>{{msg}}</p>
+    </form>
+    </body>
+{% endblock %}

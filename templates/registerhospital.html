@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+
+
+<body>
+    <form method = "POST" action="">
+        <h2>Hastane Kayıt Sistemi</h2> <br><p>{{msg}}</p>
+        Kullanıcı Adı*: <input type = "text" name = "username" /> <br>
+        Parola*: <input type = "password" name = "parola" /> <br>
+        Hastane İsmi*: <input type = "text" name = "isim" /> <br>
+        <p>Bulunduğu Şehir*:</p>
+        <input type="radio" id="1" name="sehir" value="34">
+        <label for="1">İstanbul</label>
+        <input type="radio" id="2" name="sehir" value="6">
+        <label for="2">Ankara</label> 
+        <input type="radio" id="3" name="sehir" value="35">
+        <label for="3">İzmir</label><br>
+        <div class="container signin">
+            <button type="submit" class="registerbtn">Register</button>
+            <p>Hastane Giriş Sayfası için <a href="/loginhospital">tıklayınız</a>.</p>
+            
+          </div>
+    </form>
+    </body>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h1>Kişiler</h1>
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Şehir Kodu</th>
+        <th scope="col">Talebi Oluşturan</th>
+        <th scope="col">Kan Grubu</th>
+        <th scope="col">İhtiyaç Miktarı</th>
+        <th scope="col">Not</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+    {% for needu in needuser %}  
+      <tr> 
+        <td>{{needu.region_id}}</td>
+        <td>{{needu.name_surname}}</td>
+        <td>{{needu.blood_group}}</td>
+        <td>{{needu.amount}}</td>
+        <td>{{needu.need_comment}}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table><br>
+
+  <h1>Hastaneler</h1>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Şehir Kodu</th>
+        <th scope="col">Talebi Oluşturan</th>
+        <th scope="col">Kan Grubu</th>
+        <th scope="col">İhtiyaç Miktarı</th>
+        <th scope="col">Not</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+    {% for needu in needhospital %}  
+      <tr> 
+        <td>{{needu.region_id}}</td>
+        <td>{{needu.hospital_name}}</td>
+        <td>{{needu.blood_group}}</td>
+        <td>{{needu.amount}}</td>
+        <td>{{needu.need_comment}}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

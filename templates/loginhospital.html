@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<body>
+    <form method = "POST" action="">
+        <h2>Hastane Giriş Sayfası</h2> <br>
+        Kullanıcı Adı*: <input type = "text" name = "username" /> <br>
+        Parola*: <input type = "password" name = "password" /> <br>      
+    <div class="container signin">
+        <button type="submit" class="registerbtn">Login</button>
+        <p>Hastane Kayıt Sayfası için <a href="/registerhospital">tıklayınız</a>.</p>
+        <p>{{msg}}</p>
+    </div>
+    </form>
+    
+    </body>
+{% endblock %}

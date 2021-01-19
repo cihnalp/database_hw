@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<style>
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 70%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+  .two {
+  margin-left: 200px;
+  float:left;
+}
+  
+  </style>
+  
+
+<div class="sidenav">
+  <br><br>
+  <a href="/stok">Stok Durumu</a>
+  <a href="/stoktaniste">Stoktan Talep Et</a>
+  <a href="/needhospital">Talep Oluştur</a>
+  <a href="/changeneedhospital">Talep Sil</a>
+  <a href="/deletehospital">Hesabı Sil</a>
+</div>
+<div class="main" >
+  <h2>Profilim</h2>
+  <table>
+
+    <tr>
+      <td>İsim:</td>
+      <td>{{session['name']}}</td>
+
+    </tr>
+    <tr>
+      <td>Şehir:</td>
+        {% if session['region_id'] == 6  %}
+        <td>
+        Ankara
+        </td>
+        {% endif %}
+        {% if session['region_id'] == 35  %}
+        <td>
+        İzmir
+        </td>
+        {% endif %}
+        {% if session['region_id'] == 34  %}
+        <td>
+        İstanbul
+        </td>
+        {% endif %}
+    </tr>
+    <tr>
+      <td>Kullanıcı Adı:</td>
+      <td>{{session['username']}}</td>
+
+    </tr>
+
+  </table>
+  <br><br>
+  <div class="two">
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <br><br><h2>Toplam <br>Talep Sayısı</h2>
+        </div>
+        <div class="flip-card-back">
+          <br><br><br><h1>{{b}}</h1>
+        </div>
+      </div>
+    </div>
+    </div>
+</div>
+    
+
+
+{% endblock %}

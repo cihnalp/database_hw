@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<body>
+
+    <form method = "POST" action="">
+      <h2>Kayıt Ol </h2> <br><p>{{msg}}</p>
+      Kullanıcı Adı*: <input type = "text" name = "username" /> <br>
+      Parola*: <input type = "password" name = "parola" /> <br>
+      İsim Soyisim*: <input type = "text" name = "isim" /> <br>
+      
+      Telefon Numarası*: <input type = "text" name = "telno" /> <br>
+
+      <label for="kangrubu">Kan grubu*:</label>
+      <select name="kangrubu" id="kangrubu">
+      <option value="ARh+">ARh+</option>
+      <option value="ARh-">ARh-</option>
+      <option value="BRh+">BRh+</option>
+      <option value="BRh-">BRh-</option>
+      <option value="0Rh+">0Rh+</option>
+      <option value="0Rh-">0Rh-</option>
+      <option value="ABRh+">ABRh+</option>
+      <option value="ABRh-">ABRh-</option>
+      </select><br>
+      
+      <p>Yaşadığı Şehir*:</p>
+      <input type="radio" id="1" name="sehir" value="34">
+      <label for="1">İstanbul</label>
+      <input type="radio" id="2" name="sehir" value="6">
+      <label for="2">Ankara</label> 
+      <input type="radio" id="3" name="sehir" value="35">
+      <label for="3">İzmir</label><br>
+
+        <div class="container signin">
+          <button type="submit" class="registerbtn">Register</button>
+          <p>Hastane Kayıt Sayfası için <a href="/registerhospital">tıklayınız</a>.</p>
+          
+        </div>
+      </form>
+      
+
+    </body>
+{% endblock %}
+

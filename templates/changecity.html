@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<body>
+    <form method = "POST" action="">
+        <h2>Lütfen yeni şehrinizi seçiniz:</h2> <br>
+
+        <p>Yaşadığı Şehir:</p>
+        <input type="radio" id="1" name="sehir" value="34">
+        <label for="1">İstanbul</label>
+        <input type="radio" id="2" name="sehir" value="6">
+        <label for="2">Ankara</label> 
+        <input type="radio" id="3" name="sehir" value="35">
+        <label for="3">İzmir</label><br>
+
+        <button type="submit" class="changebtn">Onayla</button>
+    </form>
+    </body>
+{% endblock %}

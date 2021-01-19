@@ -1,17 +1,100 @@
-<!DOCTYPE html>
-<html>
-    <title>Kan Bağış Sistemi</title>
-    <link rel="stylesheet" href="/static/stylesheet.css">
-    <body>
-    <form method = "POST" action="">
-        <h2>Lütfen bilgileri doldurun! (*) Doldurulması zorunlu alanı simgeler. </h2> <br>
-        Ad*: <input type = "text" name = "isim" /> <br>
-        parola*: <input type = "password" name = "parola" /> <br>
-        kan grubu*: <input type = "text" name = "kangrubu" /> <br>
-        Telefon Numarası*: <input type = "text" name = "telno" /> <br>
-        yaşadığı şehir: <input type = "number" name = "sehir" /> <br>
+{% extends "layout.html" %}
 
-        <input type = "submit">
-    </form>
-    </body>
-</html>
+{% block body %} 
+<style>
+  body  {
+    background-image: url("background.png");
+  }
+  </style>
+
+<style>
+    .one {
+      margin-left: 80px;
+      float:left;
+    }
+    
+    .two {
+      margin-left: 50px;
+      float:left;
+    }
+    .three {
+      margin-left: 50px;
+      float:left;
+    }
+    .four {
+      margin-left: 50px;
+      float:left;
+    }
+
+    </style>
+
+
+<h1>Kan Ver Hayat Kurtar</h1>
+<hr>
+<h3>Misyonumuz:</h3>
+<p>
+    Sürdürülebilir güvenli kan teminini sağlamak. İhtiyacı olan insanların en hızlı şekilde bağışçılara ulaşabilmesi.
+</p>
+<h3>Vizyonumuz:</h3>
+<p>
+    Yenilikçi teknoloji ve yaklaşımlarla, toplumun duyarlılığını artırmak ve güvenli 
+    kan ihtiyacının karşılanmasında sürdürülebilir model olmak. Tüm toplum için kan bağışının her zaman 
+    önemli bir ihtiyaç olduğunu gösterebilmek. 
+</p>
+<hr>
+<br><br>
+<div class="one">
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <br><br><br><h1>{{d['COUNT(*)']}}</h1>
+        </div>
+        <div class="flip-card-back">
+          <br><br><h3>Site Üzerinden<br>Gerçekleşen<br>Bağış Sayısı </h3>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="two">
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          
+          <br><br><br><h1>{{u['COUNT(*)']}}</h1>
+        </div>
+        <div class="flip-card-back">
+            <br><br><h3>Siteye Kayıtlı<br>Bağışçı Sayısı</h3>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="three">
+        <div class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <br><br><br><h1>{{h['COUNT(*)']}}</h1>
+            </div>
+            <div class="flip-card-back">
+                <br><h3><br>Siteye Kayıtlı<br>Hastane Sayısı</h3>
+            </div>
+          </div>
+        </div>
+        </div>
+    
+        <div class="four">
+        <div class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              
+              <br><br><br><h1>{{s['COUNT(*)']}}</h1>
+            </div>
+            <div class="flip-card-back">
+                <br><br><h3>İlde Hizmet<br>Veriyoruz</h3>
+            </div>
+          </div>
+        </div>
+        </div>
+    
+{% endblock %}

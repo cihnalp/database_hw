@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<body>
+    <form method = "POST" action="">
+        <h2>Lütfen hesabınızı silmek için aşağıdaki bilgileri doldurunuz:</h2> <br>
+        Kullanıcı Adı*: <input type = "text" name = "username" /> <br>
+        Parola*: <input type = "password" name = "password" /> <br>
+        <button type="submit" class="deletebtn">Hesabı Sil</button>
+    </form>
+    <p>{{msg}}</p>
+    </body>
+{% endblock %}
