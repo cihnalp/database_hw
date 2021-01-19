@@ -5,10 +5,10 @@ import MySQLdb.cursors
 app = Flask(__name__)
 app.secret_key = 'super secret key'
 
-app.config['MYSQL_HOST'] = 'eu-cdbr-west-03.cleardb.net'
-app.config['MYSQL_USER'] = 'b1f6b4ddcecdda'
-app.config['MYSQL_PASSWORD'] = 'c90fb2a2'
-app.config['MYSQL_DB'] = 'heroku_b149c46afedacc5'
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = 'admin'
+app.config['MYSQL_DB'] = 'blood_donation_system'
 
 mysql = MySQL(app)
 
@@ -132,7 +132,7 @@ def hospitallogin():
             session['region_id'] = account['region_id']
             return redirect(url_for('profilhospital'))
         else: 
-            msg = 'Kullanıcı Adı/Parola Yanlış'
+            msg = 'Incorrect username / password !'
     return render_template('loginhospital.html', msg = msg) 
 
 @app.route('/profil', methods=['GET', 'POST'])
@@ -147,9 +147,8 @@ def profil():
 @app.route('/profilhospital', methods=['GET', 'POST'])
 def profilhospital():
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor) 
-        cursor.execute('SELECT COUNT(*) FROM need WHERE needy_hospitalusername = %s',(session['username'],)) 
-        bb = cursor.fetchone()
-        b = bb['COUNT(*)']
+        cursor.execute('SELECT COUNT(*) FROM need WHERE needy_username = %s',(session['username'],)) 
+        b = cursor.fetchone() 
         return render_template('profilhospital.html',b=b)
 
 @app.route('/donate', methods=['GET', 'POST'])
@@ -239,7 +238,7 @@ def delete():
             msg="Tüm Talepleriniz Silindi, Hesabınız Sistemden Başarıyla Kaldırıldı."
             return render_template('success.html',msg=msg) 
         else: 
-            msg = 'Kullanıcı Adı/Parola Hatalı.'
+            msg = 'Incorrect username / password !'
     return render_template('deleteuser.html', msg = msg) 
 
 
@@ -319,25 +318,21 @@ def need():
 @app.route('/needhospital', methods=['GET', 'POST'])
 def needhospital():
     if request.method == "POST":
-        if request.form['amount']:
-            details = request.form
+        details = request.form
 
-            user_name = session['username']
-            amount = int(details['amount'])
-            region_id = session["region_id"]
-            blood_group = details['kangrubu']
-            comment = details['comment']
+        user_name = session['username']
+        amount = int(details['amount'])
+        region_id = session["region_id"]
+        blood_group = details['kangrubu']
+        comment = details['comment']
 
-            cur = mysql.connection.cursor()
-            cur.execute(
-                "INSERT INTO need(needy_hospitalusername, amount, region_id, blood_group, need_comment) VALUES (%s, %s, %s, %s, %s);", (user_name, amount, region_id, blood_group, comment))
-            mysql.connection.commit()
-            cur.close()
-            msg="Talebiniz Başarıyla Oluşturuldu."
-            return render_template('success.html',msg=msg)
-        else:
-            msg="Lütfen gerekli kan miktarını giriniz."
-            return render_template('needhospital.html',msg=msg)
+        cur = mysql.connection.cursor()
+        cur.execute(
+            "INSERT INTO need(needy_hospitalusername, amount, region_id, blood_group, need_comment) VALUES (%s, %s, %s, %s, %s);", (user_name, amount, region_id, blood_group, comment))
+        mysql.connection.commit()
+        cur.close()
+        msg="Talebiniz Başarıyla Oluşturuldu."
+        return render_template('success.html',msg=msg)
     return render_template('needhospital.html')
 
 @app.route('/allneeds', methods=['GET', 'POST'])
@@ -352,82 +347,77 @@ def allneeds():
 
 @app.route('/stoktaniste', methods=['GET', 'POST'])
 def stoktaniste():
-    if request.method == "POST" and 'amount' in request.form:
-        if request.form['amount']:
-            details = request.form
-            amount = int(details['amount'])
-            region_id = session["region_id"]
-            blood_group = details['kangrubu']
-            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor) 
-            cursor.execute('SELECT * FROM stock WHERE region_id = % s', (region_id,)) 
-            stok = cursor.fetchone() 
-            msg = "Stokta istenilen miktarda kan yok, Lütfen stok durumunu kontrol ediniz."
-            if blood_group == 'ARh+':
-                if amount > stok['Arhp']:
-                    return render_template('stoktaniste.html', msg = msg)
-                else:    
-                    amount = stok['Arhp'] - amount
-                    cursor.execute("UPDATE stock SET Arhp = %s WHERE region_id = %s", (amount,region_id))
-            elif blood_group == 'ARh-':
-                if amount > stok['Arhn']:
-                    return render_template('stoktaniste.html', msg = msg)
-                else:    
-                    amount = stok['Arhn'] - amount
-                    cursor.execute("UPDATE stock SET Arhn = %s WHERE region_id = %s", (amount,region_id))
-            elif blood_group == 'BRh+':
-                if amount > stok['Brhp']:
-                    return render_template('stoktaniste.html', msg = msg)
-                else:    
-                    amount = stok['Brhp'] - amount
-                    cursor.execute("UPDATE stock SET Brhp = %s WHERE region_id = %s", (amount,region_id))
-            elif blood_group == 'BRh-':
-                if amount > stok['Brhn']:
-                    return render_template('stoktaniste.html', msg = msg)
-                else:    
-                    amount = stok['Brhn'] - amount
-                    cursor.execute("UPDATE stock SET Brhn = %s WHERE region_id = %s", (amount,region_id))
-            elif blood_group == '0Rh+':
-                if amount > stok['zerorhp']:
-                    return render_template('stoktaniste.html', msg = msg)
-                else:       
-                    amount = stok['zerorhp'] - amount
-                    cursor.execute("UPDATE stock SET zerorhp = %s WHERE region_id = %s", (amount,region_id))
-            elif blood_group == '0Rh-':
-                if amount > stok['zerorhn']:
-                    return render_template('stoktaniste.html', msg = msg)
-                else:    
-                    amount = stok['zerorhn'] - amount
-                    cursor.execute("UPDATE stock SET zerorhn = %s WHERE region_id = %s", (amount,region_id))
-            elif blood_group == 'ABRh+':
-                if amount > stok['ABrhp']:
-                    return render_template('stoktaniste.html', msg = msg)
-                else:    
-                    amount = stok['ABrhp'] - amount
-                    cursor.execute("UPDATE stock SET ABrhp = %s WHERE region_id = %s", (amount,region_id))
-            elif blood_group == 'ABRh-':
-                if amount > stok['ABrhn']:
-                    return render_template('stoktaniste.html', msg = msg)
-                else:    
-                    amount = stok['ABrhn'] - amount
-                    cursor.execute("UPDATE stock SET ABrhn = %s WHERE region_id = %s", (amount,region_id))
-            mysql.connection.commit()
-            cursor.close()
-            msg="Stokta Yeterli Kan Var, En Yakın Zamanda Hastanenize Ulaştırılacaktır."
-            return render_template('success.html',msg=msg)
+    if request.method == "POST":
+        details = request.form
 
-        elif request.method == "POST":
-            msg="Lütfen Geçerli Bir Değer Girin."
-            return render_template('stoktaniste.html',msg=msg)
-    
+        amount = int(details['amount'])
+        region_id = session["region_id"]
+        blood_group = details['kangrubu']
+
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor) 
+        cursor.execute('SELECT * FROM stock WHERE region_id = % s', (region_id,)) 
+        stok = cursor.fetchone() 
+        msg = "Stokta istenilen miktarda kan yok, Lütfen stok durumunu kontrol ediniz."
+        if blood_group == 'ARh+':
+            if amount > stok['Arhp']:
+                return render_template('stoktaniste.html', msg = msg)
+            else:    
+                amount = stok['Arhp'] - amount
+                cursor.execute("UPDATE stock SET Arhp = %s WHERE region_id = %s", (amount,region_id))
+        elif blood_group == 'ARh-':
+            if amount > stok['Arhn']:
+                return render_template('stoktaniste.html', msg = msg)
+            else:    
+                amount = stok['Arhn'] - amount
+                cursor.execute("UPDATE stock SET Arhn = %s WHERE region_id = %s", (amount,region_id))
+        elif blood_group == 'BRh+':
+            if amount > stok['Brhp']:
+                return render_template('stoktaniste.html', msg = msg)
+            else:    
+                amount = stok['Brhp'] - amount
+                cursor.execute("UPDATE stock SET Brhp = %s WHERE region_id = %s", (amount,region_id))
+        elif blood_group == 'BRh-':
+            if amount > stok['Brhn']:
+                return render_template('stoktaniste.html', msg = msg)
+            else:    
+                amount = stok['Brhn'] - amount
+                cursor.execute("UPDATE stock SET Brhn = %s WHERE region_id = %s", (amount,region_id))
+        elif blood_group == '0Rh+':
+            if amount > stok['zerorhp']:
+                return render_template('stoktaniste.html', msg = msg)
+            else:       
+                amount = stok['zerorhp'] - amount
+                cursor.execute("UPDATE stock SET zerorhp = %s WHERE region_id = %s", (amount,region_id))
+        elif blood_group == '0Rh-':
+            if amount > stok['zerorhn']:
+                return render_template('stoktaniste.html', msg = msg)
+            else:    
+                amount = stok['zerorhn'] - amount
+                cursor.execute("UPDATE stock SET zerorhn = %s WHERE region_id = %s", (amount,region_id))
+        elif blood_group == 'ABRh+':
+            if amount > stok['ABrhp']:
+                return render_template('stoktaniste.html', msg = msg)
+            else:    
+                amount = stok['ABrhp'] - amount
+                cursor.execute("UPDATE stock SET ABrhp = %s WHERE region_id = %s", (amount,region_id))
+        elif blood_group == 'ABRh-':
+            if amount > stok['ABrhn']:
+                return render_template('stoktaniste.html', msg = msg)
+            else:    
+                amount = stok['ABrhn'] - amount
+                cursor.execute("UPDATE stock SET ABrhn = %s WHERE region_id = %s", (amount,region_id))
+        mysql.connection.commit()
+        cursor.close()
+        msg="Stokta Yeterli Kan Var, En Yakın Zamanda Hastanenize Ulaştırılacaktır."
+        return render_template('success.html',msg=msg)
     return render_template('stoktaniste.html')
 
 @app.route('/changeneedhospital', methods=['GET', 'POST'])
 def changeneedhospital():
-    username = session['username']
-    name = session['name']
     if request.method == "POST":
         details = request.form
-        
+        username = session['username']
+        name = session['name']
         
         if details['amount']:
             amount = int(details['amount'])
