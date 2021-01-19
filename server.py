@@ -230,10 +230,15 @@ def delete():
             user_name = account['user_name']
             cursor = mysql.connection.cursor()
 
-            sorgu = "DELETE FROM user WHERE user_name = %s"
-            cursor.execute(sorgu,(user_name,))
             sorgu = "DELETE FROM need WHERE needy_username = %s"
             cursor.execute(sorgu,(user_name,))
+
+            sorgu = "DELETE FROM donate WHERE donator_username = %s"
+            cursor.execute(sorgu,(user_name,))
+
+            sorgu = "DELETE FROM user WHERE user_name = %s"
+            cursor.execute(sorgu,(user_name,))
+
             mysql.connection.commit()
             session['logged_in'] = False
             msg="Tüm Talepleriniz Silindi, Hesabınız Sistemden Başarıyla Kaldırıldı."
@@ -256,10 +261,10 @@ def deletehospital():
             user_name = account['hospital_username']
             cursor = mysql.connection.cursor()
 
-            sorgu = "DELETE FROM hospital WHERE hospital_username = %s"
+            sorgu = "DELETE FROM need WHERE needy_hospitalusername = %s"
             cursor.execute(sorgu,(user_name,))
 
-            sorgu = "DELETE FROM need WHERE needy_hospitalusername = %s"
+            sorgu = "DELETE FROM hospital WHERE hospital_username = %s"
             cursor.execute(sorgu,(user_name,))
             mysql.connection.commit()
             session['logged_in'] = False
